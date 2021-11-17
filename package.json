@@ -1,8 +1,8 @@
 {
   "name": "football-stat-track",
   "version": "3.2.5-2",
-  "description": "Ionic/Angular SQLite Application Starter",
-  "author": "Jean Pierre Quéau",
+  "description": "App to manage players and matches with accompanying statistics",
+  "author": "Joshua Mather",
   "license": "MIT",
   "homepage": "./",
   "scripts": {
@@ -79,9 +79,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jepiqueau/angular-sqlite-app-starter.git"
-  },
-  "bugs": {
-    "url": "https://github.com/jepiqueau/angular-sqlite-app-starter.git/issues"
+    "url": "https://github.com/JoshuaMather/football-stat-track"
   }
 }

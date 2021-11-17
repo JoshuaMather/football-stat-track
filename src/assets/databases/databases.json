@@ -1,7 +1,5 @@
 {
   "databaseList" : [
-    "dbForCopy.db",
-    "myDBSQLite.db",
-    "Archive.zip"
+    "FASdbCap.db"
   ]
 }
