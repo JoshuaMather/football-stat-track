@@ -89,7 +89,7 @@ cd electron
 npm run electron:make
 ``` 
 
-### SQLite
+## SQLite
 
 Built using community capacitor SQLite plugin: https://github.com/capacitor-community/sqlite
 Structure based off plugin angular starter app: https://github.com/jepiqueau/angular-sqlite-app-starter
