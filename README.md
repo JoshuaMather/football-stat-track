@@ -91,5 +91,5 @@ npm run electron:make
 
 ## SQLite
 
-Built using community capacitor SQLite plugin: https://github.com/capacitor-community/sqlite
+Built using community capacitor SQLite plugin: https://github.com/capacitor-community/sqlite <br />
 Structure based off plugin angular starter app: https://github.com/jepiqueau/angular-sqlite-app-starter
