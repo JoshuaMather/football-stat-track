@@ -5,7 +5,7 @@
 
 ```bash
 git clone https://github.com/JoshuaMather/football-stat-track.git
-cd angular-sqlite-app-starter
+cd football-stat-track.git
 git remote rm origin
 ```
 
