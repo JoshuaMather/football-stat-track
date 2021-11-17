@@ -1,0 +1,63 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar translucent="true">
+    <ion-buttons>
+      <ion-button>
+        <ion-back-button defaultHref="home" color="primary"></ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-title mode="ios">Players</ion-title>
+    <ion-button (click)="newPlayer()" slot="end" fill="clear">
+      <ion-icon slot="icon-only" name="add" color="primary"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-accordion-group>
+    <ion-accordion *ngFor="let player of playerList">
+      <ion-item slot="header" lines="inset" class="ion-no-padding">
+        <ion-label class="ion-padding-start">{{ player.name }}</ion-label>
+      </ion-item>
+
+      <ion-list slot="content">
+        <ion-item lines="none">
+          <ion-label>Name: {{ player.name }}</ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label>Position: {{ player.position }}</ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label>Date of Birth: {{ player.dob }}</ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label>Email: {{ player.email }}</ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label>Phone Number: {{ player.phoneNumber }}</ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label class="ion-padding-end">Subs Due:</ion-label>
+          <ion-input #subs type="text" value="{{ player.subsDue }}" class="border"></ion-input>
+          <ion-button (click)="updateSubs(subs.value, player.playerId)" expand="block" fill="clear" shape="round">
+            Update
+          </ion-button>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-button (click)="statsClick(player.playerId, player.name)" expand="block" fill="clear" shape="round">
+          View Stats
+          </ion-button>
+          <ion-button (click)="editPlayer(player)" expand="block" fill="clear" shape="round" slot="end">
+            Edit
+          </ion-button>
+          <ion-button (click)="deletePlayer(player.playerId)" expand="block" fill="clear" shape="round" slot="end" color="danger">
+            Delete
+          </ion-button>
+        </ion-item>
+      </ion-list>
+    </ion-accordion>
+  </ion-accordion-group>
+</ion-content>

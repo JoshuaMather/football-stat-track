@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title mode="ios">Info</ion-title>
+
+      <ion-button (click)="close()" slot="end" fill="clear">
+        <ion-icon slot="icon-only" name="close" color="primary"></ion-icon>
+      </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-grid >
+  <ion-row class="ion-text-center">
+    <ion-col offset="1" size="10">
+      <ion-label>
+        This app keeps track of players and matches with accompanying statistics.
+
+
+      </ion-label>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="ion-text-center">
+    <ion-col offset="3" size="6">
+      <ion-label>
+        Players and their details can be added through the players list.<br>
+        Once created a player will be visible in the list and be able to be added to matches.<br>
+        The player details can be viewed in the list and they can be edited.<br>
+        Players statistics will be tracked, which can be viewed through the player's entry in the player list.<br>
+        These statistics are updated per match, where statistics for the players that played are set. <br>
+        Any subs owed can also be tracked via the player list.
+
+
+      </ion-label>
+    </ion-col>
+    <ion-col size="6"></ion-col>
+  </ion-row>
+
+  <ion-row class="ion-text-center">
+    <ion-col offset="3" size="6">
+      <ion-label>
+        Matches that are played can be added via the matches list.<br>
+        When adding a match, the match info, teams, and statistics for each player for the match can be added.<br>
+        As matches can be edited, not all these need be set initially.<br>
+        Once a match is created, it can be seen in the list, where it can be edited or have its details viewed.<br>
+        From the matches list, total stats and leaderboards can be viewed.<br>
+
+        
+      </ion-label>
+    </ion-col>
+    <ion-col size="6"></ion-col>
+  </ion-row>
+</ion-grid>
+</ion-content>

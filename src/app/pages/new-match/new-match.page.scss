@@ -1,0 +1,32 @@
+ion-accordion.accordion-expanding ion-item[slot="header"],
+ion-accordion.accordion-expanded ion-item[slot="header"] {
+  --color: var(--ion-color-primary);
+  --border-color: var(--ion-color-primary);
+}
+
+ion-item {
+  --border-color: var(--ion-color-secondary);
+  // --border-width: 5px;
+}
+
+ion-list {
+  background-color: var(--ion-color-secondary);
+  padding-top: 0%;
+  padding-bottom: 1px;
+}
+
+form{
+  padding: 0;
+  margin: 0;
+}
+
+ion-grid{
+  padding: 0;
+  margin: 0;
+}
+
+.input-item{
+  --background: transparent;
+  --border-color: transparent;
+}
+

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { NavController, Platform } from '@ionic/angular';
 import { SQLiteService } from './services/sqlite.service';
 import { DetailService } from './services/detail.service';
 import { Capacitor } from '@capacitor/core';
+import { DbService } from './services/db.service';
 
 @Component({
   selector: 'app-root',
@@ -16,12 +17,16 @@ export class AppComponent {
   constructor(
     private platform: Platform,
     private sqlite: SQLiteService,
-    private detail: DetailService 
+    private detail: DetailService,
+    private navCtrl: NavController,
+    private db: DbService,
   ) {
     this.initializeApp();
   }
 
   initializeApp() {
+    this.navCtrl.navigateForward('home');
+
     this.platform.ready().then(async () => {
       this.detail.setExistingConnection(false);
       this.detail.setExportJson(false);
@@ -42,30 +47,9 @@ export class AppComponent {
             console.log('$$ jeepSqliteEl is null');
           }
         }
-        try {
-          console.log(`going to create a connection`)
-          const db = await this.sqlite.createConnection("db_issue9",false,"no-encryption", 1);
-          console.log(`db ${JSON.stringify(db)}`)
-          await db.open();
-          console.log(`after db.open`)
-          let query = `
-          CREATE TABLE IF NOT EXISTS test (
-            id INTEGER PRIMARY KEY NOT NULL,
-            name TEXT NOT NULL
-          );
-          `
-          console.log(`query ${query}`)
-
-          const res: any = await db.execute(query);
-          console.log(`res: ${JSON.stringify(res)}`)
-          await db.close();
-          console.log(`after db.close`)
-        } catch (err) {
-          console.log(`Error: ${err}`);
-          this.initPlugin = false;
-        }
 
         console.log(">>>> in App  this.initPlugin " + this.initPlugin)
+        this.db.createTables();
       });
     });
   }

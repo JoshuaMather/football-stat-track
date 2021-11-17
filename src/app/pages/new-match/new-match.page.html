@@ -1,0 +1,338 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar translucent="true">
+    <ion-buttons>
+      <ion-button (click)="modalClose()">
+        <ion-back-button defaultHref="home" color="primary"></ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-title mode="ios">{{edit ? 'Edit Match' : 'New Match'}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="ion-no-padding">
+    <form [formGroup]="createMatch">
+      <ion-accordion-group multiple="true">
+        <ion-accordion value="teams">
+          <ion-item slot="header" lines="inset" class="ion-no-padding">
+            <ion-label class="ion-padding-start">Teams</ion-label>
+          </ion-item>
+
+          <ion-grid slot="content">
+            <ion-row>
+              <ion-col>
+                <ion-item class="ion-no-padding" lines="none" class="input-item">
+                  <ion-label class="ion-padding-start">Bibs</ion-label>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-item lines="none" *ngFor="let player of bibs">
+                  <ion-label>{{ player.name }}</ion-label>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-button (click)="choosePlayers('bibs')" expand="block" fill="clear" shape="round">
+                  Choose Players
+                </ion-button>
+              </ion-col>
+            </ion-row>
+
+
+            <ion-row>
+              <ion-col>
+                <ion-item class="ion-no-padding" lines="none" class="input-item">
+                  <ion-label class="ion-padding-start">Non-Bibs</ion-label>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-item lines="none" *ngFor="let player of nonBibs">
+              <ion-label>{{ player.name }}</ion-label>
+            </ion-item>
+            <ion-row>
+              <ion-col>
+                <ion-button (click)="choosePlayers('nonBibs')" expand="block" fill="clear" shape="round">
+                  Choose Players
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-accordion>
+
+
+        <ion-accordion value="match-stats">
+          <ion-item slot="header" lines="inset" class="ion-no-padding">
+            <ion-label class="ion-padding-start">Match Info</ion-label>
+          </ion-item>
+
+          <ion-grid slot="content">
+            <ion-row>
+              <ion-col>
+                <ion-item class="ion-no-padding" lines="none" class="input-item">
+                  <ion-label class="ion-padding-start">Match Date</ion-label>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col *ngIf="createMatch.get('date') as control">
+                <ion-item  class="input-item">
+
+                  <ion-button fill="clear" id="open-date-input">
+                    <ion-icon icon="calendar"></ion-icon>
+                  </ion-button>
+                  <ion-popover trigger="open-date-input" show-backdrop="false">
+                    <ion-content>
+                    <ng-template>
+                      <ion-datetime
+                        value=""
+                        #popoverDatetime
+                        (ionChange)="dateValue = formatDate(popoverDatetime.value)"
+                        hourCycle="h23"
+                        show-default-buttons="true"
+                        show-clear-button="true"
+                      >
+                    </ion-datetime>
+                    </ng-template>
+                  </ion-content>
+                  </ion-popover>
+                  <ion-input [value]="dateValue"></ion-input>
+                </ion-item>
+                <ng-container *ngIf="(control.invalid && (control.dirty || control.touched))">
+                  <ion-item class="input-item" lines="none"><small>
+                    <ion-note color="danger">
+                      <ng-container *ngIf="control.errors.required">
+                        Match date is required.<br/>
+                      </ng-container>
+                    </ion-note>
+                  </small></ion-item>
+                </ng-container>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                <ion-item class="ion-no-padding" lines="none"  class="input-item">
+                  <ion-label class="ion-padding-start">Match Finish Time</ion-label>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col *ngIf="createMatch.get('finishTime') as control">
+                <ion-item class="input-item">
+
+                  <ion-button fill="clear" id="open-time-input">
+                    <ion-icon icon="calendar"></ion-icon>
+                  </ion-button>
+                  <ion-popover trigger="open-time-input" show-backdrop="false">
+                    <ion-content>
+                    <ng-template>
+                      <ion-datetime
+                        presentation="time"
+                        value=""
+                        #popoverTime
+                        (ionChange)="timeValue = formatTime(popoverTime.value)"
+                        hourCycle="h23"
+                        show-default-buttons="true"
+                        show-clear-button="true"
+                      >
+                    </ion-datetime>
+                    </ng-template>
+                  </ion-content>
+                  </ion-popover>
+                  <ion-input [value]="timeValue"></ion-input>
+                </ion-item>
+                <ng-container *ngIf="(control.invalid && (control.dirty || control.touched))">
+                  <ion-item class="input-item" lines="none"><small>
+                    <ion-note color="danger">
+                      <ng-container *ngIf="control.errors.required">
+                        Match finish time is required.<br/>
+                      </ng-container>
+                    </ion-note>
+                  </small></ion-item>
+                </ng-container>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                <ion-item class="ion-no-padding" lines="none" class="input-item">
+                  <ion-label class="ion-padding-start">Scoreline</ion-label>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col *ngIf="createMatch.get('bibScore') as control" size="6">
+                <ion-item class="input-item">
+                  <ion-label position="stacked">
+                    <span class="text">Bibs</span>
+                  </ion-label>
+                  <ion-input formControlName="bibScore" lines="none" value="{{ edit ? bibsScore : ''}}"></ion-input>
+                </ion-item>
+                <ng-container *ngIf="(control.invalid && (control.dirty || control.touched))">
+                  <ion-item class="input-item" lines="none"><small>
+                    <ion-note color="danger">
+                      <ng-container *ngIf="control.errors.required">
+                        Bibs Score is required.<br/>
+                      </ng-container>
+                    </ion-note>
+                  </small></ion-item>
+                </ng-container>
+              </ion-col>
+              <ion-col *ngIf="createMatch.get('nonBibScore') as control" size="6">
+                <ion-item class="input-item">
+                  <ion-label position="stacked">
+                    <span class="text">Non-Bibs</span>
+                  </ion-label>
+                  <ion-input formControlName="nonBibScore" lines="none" value="{{ edit ? nonBibsScore : ''}}"></ion-input>
+                </ion-item>
+                <ng-container *ngIf="(control.invalid && (control.dirty || control.touched))">
+                  <ion-item class="input-item" lines="none"><small>
+                    <ion-note color="danger">
+                      <ng-container *ngIf="control.errors.required">
+                        Non-Bibs Score is required.<br/>
+                      </ng-container>
+                    </ion-note>
+                  </small></ion-item>
+                </ng-container>
+              </ion-col>
+            </ion-row>
+
+          </ion-grid>
+        </ion-accordion>
+
+        <ion-accordion value="player-stats-players">
+          <ion-item slot="header" lines="inset" class="ion-no-padding">
+            <ion-label class="ion-padding-start">Player Stats</ion-label>
+          </ion-item>
+
+          <ion-grid slot="content">
+            <ion-accordion-group multiple="true">
+              <ion-accordion *ngFor="let player of selectedPlayers; let i = index" toggle-icon="caret-down">
+                <ion-item slot="header" class="input-item">
+                  <ion-label>{{ player.name }}</ion-label>
+                </ion-item>
+
+                <ion-grid slot="content">
+                  <ion-row>
+                    <ion-col size="6">
+                      <ion-item class="input-item">
+                        <ion-label position="stacked">
+                          <span class="text">Goals</span>
+                        </ion-label>
+                        <ion-input lines="none" value="{{playerStatsArray[i] ? playerStatsArray[i]['goals'] : 0}}" (ionChange)="updatePlayerStatsArray(player.playerId, $event, 'goals')"></ion-input>
+                      </ion-item>
+                    </ion-col>
+                    <ion-col size="6">
+                      <ion-item class="input-item">
+                        <ion-label position="stacked">
+                          <span class="text">Workrate</span>
+                        </ion-label>
+                        <ion-select value="{{playerStatsArray[i] ? playerStatsArray[i]['workrate'] : 0}}" okText="Select" cancelText="Dismiss" (ionChange)="updatePlayerStatsArray(player.playerId, $event, 'workrate')">
+                          <ion-select-option value="0">0</ion-select-option>
+                          <ion-select-option value="1">1</ion-select-option>
+                          <ion-select-option value="2">2</ion-select-option>
+                          <ion-select-option value="3">3</ion-select-option>
+                          <ion-select-option value="4">4</ion-select-option>
+                          <ion-select-option value="5">5</ion-select-option>
+                          <ion-select-option value="6">6</ion-select-option>
+                          <ion-select-option value="7">7</ion-select-option>
+                          <ion-select-option value="8">8</ion-select-option>
+                          <ion-select-option value="9">9</ion-select-option>
+                          <ion-select-option value="10">10</ion-select-option>
+                        </ion-select>
+                      </ion-item>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col size="6">
+                      <ion-item class="input-item">
+                        <ion-label position="stacked">
+                          <span class="text">Assists</span>
+                        </ion-label>
+                        <ion-input lines="none" value="{{playerStatsArray[i] ? playerStatsArray[i]['assists'] : 0}}" (ionChange)="updatePlayerStatsArray(player.playerId, $event, 'assists')"></ion-input>
+                      </ion-item>
+                    </ion-col>
+                    <ion-col size="6">
+                      <ion-item class="input-item">
+                        <ion-label position="stacked">
+                          <span class="text">Defensive Rating</span>
+                        </ion-label>
+                        <ion-select value="{{playerStatsArray[i] ? playerStatsArray[i]['defRating'] : 0}}" okText="Select" cancelText="Dismiss" (ionChange)="updatePlayerStatsArray(player.playerId, $event, 'defRating')">
+                          <ion-select-option value="0">0</ion-select-option>
+                          <ion-select-option value="1">1</ion-select-option>
+                          <ion-select-option value="2">2</ion-select-option>
+                          <ion-select-option value="3">3</ion-select-option>
+                          <ion-select-option value="4">4</ion-select-option>
+                          <ion-select-option value="5">5</ion-select-option>
+                          <ion-select-option value="6">6</ion-select-option>
+                          <ion-select-option value="7">7</ion-select-option>
+                          <ion-select-option value="8">8</ion-select-option>
+                          <ion-select-option value="9">9</ion-select-option>
+                          <ion-select-option value="10">10</ion-select-option>
+                        </ion-select>
+                      </ion-item>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col size="6">
+                      <ion-item class="input-item">
+                        <ion-label position="stacked">
+                          <span class="text">Saves</span>
+                        </ion-label>
+                        <ion-input lines="none" value="{{playerStatsArray[i] ? playerStatsArray[i]['saves'] : 0}}" (ionChange)="updatePlayerStatsArray(player.playerId, $event, 'saves')"></ion-input>
+                      </ion-item>
+                    </ion-col>
+                    <ion-col size="6">
+                      <ion-item class="input-item">
+                        <ion-label position="stacked">
+                          <span class="text">Attacking Rating</span>
+                        </ion-label>
+                        <ion-select value="{{playerStatsArray[i] ? playerStatsArray[i]['attRating'] : 0}}" okText="Select" cancelText="Dismiss" (ionChange)="updatePlayerStatsArray(player.playerId, $event, 'attRating')">
+                          <ion-select-option value="0">0</ion-select-option>
+                          <ion-select-option value="1">1</ion-select-option>
+                          <ion-select-option value="2">2</ion-select-option>
+                          <ion-select-option value="3">3</ion-select-option>
+                          <ion-select-option value="4">4</ion-select-option>
+                          <ion-select-option value="5">5</ion-select-option>
+                          <ion-select-option value="6">6</ion-select-option>
+                          <ion-select-option value="7">7</ion-select-option>
+                          <ion-select-option value="8">8</ion-select-option>
+                          <ion-select-option value="9">9</ion-select-option>
+                          <ion-select-option value="10">10</ion-select-option>
+                        </ion-select>
+                      </ion-item>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col>
+                      <ion-item class="input-item">
+                        <ion-label position="stacked">
+                          <span class="text">Match Rating</span>
+                        </ion-label>
+                        {{playerStatsArray[i] ? playerStatsArray[i]['matchRating'] : 0}}
+                      </ion-item>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-accordion>
+            </ion-accordion-group>
+          </ion-grid>
+        </ion-accordion>
+      </ion-accordion-group>
+    </form>
+
+    <ion-button *ngIf="!edit" (click)="createAlert()" expand="block" fill="clear" shape="round">
+      Create Match
+    </ion-button>
+    <ion-button *ngIf="edit" (click)="editAlert()" expand="block" fill="clear" shape="round">
+      Edit Match
+    </ion-button>
+  </ion-grid>
+
+</ion-content>

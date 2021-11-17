@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Choose Players</ion-title>
+
+    <ion-button (click)="confirm()" slot="end" fill="clear">
+      <ion-icon slot="icon-only" name="checkmark" color="primary"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-select placeholder="Select Stat" [(ngModel)]="statSelect" okText="Select" cancelText="Dismiss" (ionChange)="statSelected(statSelect)" class="ion-text-center">
+    <ion-select-option value="none">None</ion-select-option>
+    <ion-select-option value="matchesPlayed">Most Matches Played</ion-select-option>
+    <ion-select-option value="goals">Top Scorers</ion-select-option>
+    <ion-select-option value="assists">Top Assists</ion-select-option>
+    <ion-select-option value="saves">Top Saves</ion-select-option>
+    <ion-select-option value="averageGoals">Average Goals</ion-select-option>
+    <ion-select-option value="averageAssists">Average Assists</ion-select-option>
+    <ion-select-option value="averageAssists">Average Saves</ion-select-option>
+    <ion-select-option value="averageWorkrate">Average Workrate</ion-select-option>
+    <ion-select-option value="averageDefRating">Average Defensive Rating</ion-select-option>
+    <ion-select-option value="averageAttRating">Average Attacking Rating</ion-select-option>
+    <ion-select-option value="averageRating">Average Rating</ion-select-option>
+  </ion-select>
+  
+  <ion-list *ngIf="!statsList">
+    <ion-item *ngFor="let player of players">
+      <ion-label>{{ player.name }}</ion-label>
+      <ion-checkbox slot="end" (click)="checkPlayer(player)" checked="{{playerSelected(player)}}" disabled="{{playerUnavailable(player)}}"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="statsList">
+    <ion-item *ngFor="let player of statsList">
+      <ion-label>{{ player.name }}</ion-label>
+      <ion-label slot="end">{{ player[stat] }}</ion-label>
+      <ion-checkbox slot="end" (click)="checkPlayerStat(player)" checked="{{playerSelected(player)}}" disabled="{{playerUnavailable(player)}}"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+</ion-content>

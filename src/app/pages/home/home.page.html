@@ -1,0 +1,61 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title class="ion-text-center" mode="ios">
+      Football Stat Track
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Football Stat Track</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="container">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-list class="ion-no-padding">
+            <ion-card>
+              <ion-card-header>
+                <ion-icon name="person" color="primary"></ion-icon>
+                <ion-card-subtitle>View a list of all the players.</ion-card-subtitle>
+                <ion-card-title>Players</ion-card-title>
+              </ion-card-header>
+
+              <ion-card-content>
+                <ion-button (click)="playersClick()" expand="block" fill="clear" shape="round">
+                  View List
+                </ion-button>
+              </ion-card-content>
+            </ion-card>
+
+            <ion-card>
+              <ion-card-header>
+                <ion-icon name="football" color="primary"></ion-icon>
+                <ion-card-subtitle>View previous matches</ion-card-subtitle>
+                <ion-card-title>Matches</ion-card-title>
+              </ion-card-header>
+
+              <ion-card-content>
+                <ion-button (click)="matchClick()" expand="block" fill="clear" shape="round">
+                  View List
+                </ion-button>
+              </ion-card-content>
+            </ion-card>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-button (click)="info()" fill="clear">
+            <ion-icon slot="icon-only" name="information-circle" color="primary"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

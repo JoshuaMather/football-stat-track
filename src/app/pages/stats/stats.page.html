@@ -1,0 +1,83 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar translucent="true">
+    <ion-buttons>
+      <ion-button>
+        <ion-back-button defaultHref="matches" color="primary"></ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-title mode="ios">Stats</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-breadcrumbs>
+    <ion-breadcrumb href="home">
+      Home
+    </ion-breadcrumb>
+    <ion-breadcrumb href="matches">
+      Matches
+    </ion-breadcrumb>
+    <ion-breadcrumb>
+      All Stats
+    </ion-breadcrumb>
+  </ion-breadcrumbs>
+
+  <ion-accordion-group>
+<!-- TODO: Need to get totals from db, but matches need to be implemented first -->
+    <ion-accordion>
+      <ion-item slot="header">
+        <ion-label>
+          Totals
+        </ion-label>
+      </ion-item>
+
+      <ion-list slot="content">
+        <ion-item lines="none">
+          <ion-label>Total Matches: {{ matches }}</ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label>Total Goals: {{ goals }}</ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label>Total Assist: {{ assists }}</ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label>Total Saves: {{ saves }}</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-accordion>
+
+    <ion-item lines="none" class="statList ion-text-center">
+      <ion-label class="leaderboardLabel">Leaderboards</ion-label>
+    </ion-item>
+
+    <ion-select placeholder="Select Stat" [(ngModel)]="statSelect" okText="Select" cancelText="Dismiss" (ionChange)="statSelected(statSelect)" class="ion-text-center">
+      <ion-select-option value="matchesPlayed">Most Matches Played</ion-select-option>
+      <ion-select-option value="goals">Top Scorers</ion-select-option>
+      <ion-select-option value="assists">Top Assists</ion-select-option>
+      <ion-select-option value="saves">Top Saves</ion-select-option>
+      <ion-select-option value="averageGoals">Average Goals</ion-select-option>
+      <ion-select-option value="averageAssists">Average Assists</ion-select-option>
+      <ion-select-option value="averageSaves">Average Saves</ion-select-option>
+      <ion-select-option value="averageWorkrate">Average Workrate</ion-select-option>
+      <ion-select-option value="averageDefRating">Average Defensive Rating</ion-select-option>
+      <ion-select-option value="averageAttRating">Average Attacking Rating</ion-select-option>
+      <ion-select-option value="averageRating">Average Rating</ion-select-option>
+    </ion-select>
+
+    <ion-item lines="none" class="statList" *ngFor="let player of statsList">
+      <ion-label>{{ player.name }}: {{ player[stat] }}</ion-label>
+    </ion-item>
+  </ion-accordion-group>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Leaderboard Graph</ion-card-subtitle>
+      <!-- <ion-card-title>{{ stat }}</ion-card-title> -->
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #barChart></canvas>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -1,0 +1,85 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar translucent="true">
+    <ion-buttons>
+      <ion-button>
+        <ion-back-button defaultHref="matches" color="primary"></ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-title mode="ios">Match Info/Stats</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-breadcrumbs [maxItems]="maxBreadcrumbs" (ionCollapsedClick)="expandBreadcrumbs()">
+    <ion-breadcrumb href="home">
+      Home
+    </ion-breadcrumb>
+    <ion-breadcrumb href="matches">
+      Matches
+    </ion-breadcrumb>
+    <ion-breadcrumb>
+      {{ matchId }}
+    </ion-breadcrumb>
+  </ion-breadcrumbs>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Match Date: {{ date }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Match Finish Time: {{ finish }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Bibs Score: {{ bs }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Non Bibs Score: {{ nbs }}</ion-label>
+    </ion-item>
+    <ion-accordion-group multiple="true">
+      <ion-accordion>
+        <ion-item slot="header" lines="inset" class="ion-no-padding">
+          <ion-label class="ion-padding-start">Bibs Team</ion-label>
+        </ion-item>
+  
+        <ion-list slot="content" class="input-item">
+          <ion-item lines="none" *ngFor="let player of bibs" class="input-item">
+            <ion-label>{{ player.name }}</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-accordion>
+
+      <ion-accordion>
+        <ion-item slot="header" lines="inset" class="ion-no-padding">
+          <ion-label class="ion-padding-start">Non Bibs Team</ion-label>
+        </ion-item>
+  
+        <ion-list slot="content" class="input-item">
+          <ion-item lines="none" *ngFor="let player of nonBibs" class="input-item">
+            <ion-label>{{ player.name }}</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-accordion>
+    </ion-accordion-group>
+    <ion-item>
+      <ion-label>Man of the Match (Highest Rating): {{ matchRatingName }} - {{ matchRatingStat }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Top Scorer: {{ goalsName }} - {{ goalsStat }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Top Assists: {{ assistsName }} - {{ assistsStat }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Top Saves: {{ savesName }} - {{ savesStat }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Highest Workrate: {{ workrateName }} - {{ workrateStat }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Highest Defensive Rating: {{ defRatingName }} - {{ defRatingStat }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Highest Attacking Rating: {{ attRatingName }} - {{ attRatingStat }}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

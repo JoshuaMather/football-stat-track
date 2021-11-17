@@ -1,0 +1,128 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar translucent="true">
+    <ion-buttons>
+      <ion-button>
+        <ion-back-button defaultHref="players" color="primary"></ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-title mode="ios">{{edit ? 'Edit Player' : 'New Player'}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+ <ion-grid>
+  <form [formGroup]="createPlayer">
+    <ion-row>
+      <ion-col *ngIf="createPlayer.get('name') as control">
+        <ion-item class="transparent-item">
+          <ion-label position="stacked">
+            <span class="text">Name</span>
+          </ion-label>
+          <ion-input formControlName="name" placeholder="{{ edit ? name : ''}}"></ion-input>
+        </ion-item>
+        <ng-container *ngIf="(control.invalid && (control.dirty || control.touched))">
+          <ion-item class="transparent-item" lines="none"><small>
+            <ion-note color="danger">
+              <ng-container *ngIf="control.errors.required">
+                Name is required.<br/>
+              </ng-container>
+            </ion-note>
+          </small></ion-item>
+        </ng-container>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col *ngIf="createPlayer.get('position') as control">
+        <ion-item class="transparent-item">
+          <ion-label position="stacked">
+            <span class="text">Position</span>
+          </ion-label>
+          <ion-input formControlName="position" placeholder="{{ edit ? position : ''}}"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col *ngIf="createPlayer.get('dob') as control">
+        <ion-item class="transparent-item">
+          <ion-label position="stacked">
+            <span class="text">Date of Birth</span>
+          </ion-label>
+
+          <ion-button fill="clear" id="open-date-input">
+            <ion-icon icon="calendar"></ion-icon>
+          </ion-button>
+          <ion-popover trigger="open-date-input" show-backdrop="false">
+            <ng-template>
+              <ion-datetime
+                #popoverDatetime2
+                presentation="date"
+                (ionChange)="dateValue = formatDate(popoverDatetime2.value)"
+                max={{today}}
+              ></ion-datetime>
+            </ng-template>
+          </ion-popover>
+          <ion-input [value]="dateValue" placeholder="{{ edit ? dob : ''}}"></ion-input>
+        </ion-item>
+        <ng-container *ngIf="(control.invalid && (control.dirty || control.touched))">
+          <ion-item class="transparent-item" lines="none"><small>
+            <ion-note color="danger">
+              <ng-container *ngIf="control.errors.required">
+                Date of birth is required.<br/>
+              </ng-container>
+            </ion-note>
+          </small></ion-item>
+        </ng-container>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col *ngIf="createPlayer.get('email') as control">
+        <ion-item class="transparent-item">
+          <ion-label position="stacked">
+            <span class="text">Email</span>
+          </ion-label>
+          <ion-input formControlName="email" placeholder="{{ edit ? email : ''}}"></ion-input>
+        </ion-item>
+        <ng-container *ngIf="(control.invalid && (control.dirty || control.touched))">
+          <ion-item class="transparent-item" lines="none"><small>
+            <ion-note color="danger">
+              <ng-container *ngIf="control.errors.required">
+                Email is required.<br/>
+              </ng-container>
+            </ion-note>
+          </small></ion-item>
+        </ng-container>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col *ngIf="createPlayer.get('phone') as control">
+        <ion-item class="transparent-item">
+          <ion-label position="stacked">
+            <span class="text">Phone Number</span>
+          </ion-label>
+          <ion-input formControlName="phone" placeholder="{{ edit ? phoneNumber : ''}}"></ion-input>
+        </ion-item>
+        <ng-container *ngIf="(control.invalid && (control.dirty || control.touched))">
+          <ion-item class="transparent-item" lines="none"><small>
+            <ion-note color="danger">
+              <ng-container *ngIf="control.errors.required">
+                Phone number is required.<br/>
+              </ng-container>
+            </ion-note>
+          </small></ion-item>
+        </ng-container>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <ion-button expand="block" shape="round" (click)="onCreatePlayer()" color="primary">{{edit ? 'Save Changes' : 'Create Player'}}</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-grid>
+</ion-content>

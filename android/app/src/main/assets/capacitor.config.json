@@ -1,6 +1,6 @@
 {
-	"appId": "com.jeep.app.ionic.angular",
-	"appName": "angular-sqlite-app-starter",
+	"appId": "com.track.stat.football",
+	"appName": "football-stat-track",
 	"bundledWebRuntime": false,
 	"npmClient": "npm",
 	"webDir": "www",
