@@ -83,7 +83,7 @@ export class PlayersPage implements OnInit {
             console.log('Delete cancelled');
           }
         }, {
-          text: 'Comfirm',
+          text: 'Confirm',
           handler: async () => {
             await this.db.deletePlayer(playerId);
             await this.loadPlayers();

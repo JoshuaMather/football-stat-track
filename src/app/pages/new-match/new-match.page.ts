@@ -188,7 +188,7 @@ export class NewMatchPage implements OnInit {
             console.log('Create cancelled');
           }
         }, {
-          text: 'Comfirm',
+          text: 'Confirm',
           handler: async () => {
             await this.create();
           }
@@ -272,7 +272,7 @@ export class NewMatchPage implements OnInit {
             console.log('Edit cancelled');
           }
         }, {
-          text: 'Comfirm',
+          text: 'Confirm',
           handler: async () => {
             await this.editMatch();
           }
